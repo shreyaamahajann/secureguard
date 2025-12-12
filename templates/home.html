@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SecureGuard — Smart Scam Detection</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --bg1:#FDEFF8;
+      --bg2:#EEF6FF;
+      --muted:#6B7280;
+      --card: rgba(255,255,255,0.65);
+      --glass-border: rgba(255,255,255,0.6);
+      --glass-shadow: rgba(16,24,40,0.06);
+      --glass-blur: 10px;
+      --maxw: 1100px;
+      --accent-purple: linear-gradient(135deg,#6F5CFF,#8B7CFF);
+      --accent-mint: linear-gradient(135deg,#72E0C1,#6BD8FF);
+      --accent-peach: linear-gradient(135deg,#FFB2C6,#FFD8A8);
+    }
+
+    html,body{height:100%; margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;}
+    body{
+      background: linear-gradient(135deg, var(--bg1) 0%, #F6F9FF 40%, var(--bg2) 100%);
+      color:#0f172a;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:36px 20px;
+    }
+
+    .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; }
+
+    /* Header / hero */
+    .hero{ display:flex; gap:28px; align-items:center; justify-content:space-between; margin-bottom:28px; }
+    .brand-link{ display:flex; gap:14px; align-items:center; text-decoration:none; color:inherit; }
+    .logo-box {
+      width:56px; height:56px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg, rgba(124,107,255,0.95), rgba(114,224,193,0.95));
+      box-shadow: 0 8px 24px rgba(124,107,255,0.12);
+    }
+    .logo-text {
+      display:flex; flex-direction:column; line-height:1;
+    }
+    .logo-text .title { font-weight:700; font-size:18px; }
+    .logo-text .tag { font-size:12px; color:var(--muted); }
+
+    /* Tagline */
+    .hero-right{ text-align:right; min-width:360px; }
+    .tagline{ font-size:28px; margin:0 0 8px; line-height:1.06; color:#0b1220; font-weight:700; min-height:72px; display:flex; align-items:center; justify-content:flex-end; }
+    .subtag{ color:var(--muted); font-size:14px; margin:0; }
+
+    /* small animations */
+    .fade { opacity: 0; transform: translateY(6px); transition: opacity 400ms ease, transform 400ms ease; }
+    .fade.show { opacity: 1; transform: translateY(0); }
+
+    /* Grid */
+    .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; align-items:stretch; margin-top:30px; }
+    .card{
+      background: var(--card); border-radius:16px; padding:28px; border:1px solid var(--glass-border);
+      box-shadow: 0 12px 30px var(--glass-shadow); backdrop-filter: blur(var(--glass-blur));
+      display:flex; flex-direction:column; align-items:flex-start; transition: transform .25s ease, box-shadow .25s ease;
+      min-height:220px; opacity:0; transform: translateY(14px);
+    }
+    .card.show { opacity:1; transform: translateY(0); }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px rgba(16,24,40,0.10); }
+
+    .card .icon{ width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; flex-shrink:0; }
+    .card h3{ margin:0 0 8px; font-size:18px; }
+    .card p{ margin:0; color:var(--muted); font-size:13px; }
+
+    .card .cta{ margin-top:auto; display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:12px; text-decoration:none; color:white; font-weight:700; font-size:14px; border:none; cursor:pointer; transition: transform .18s ease, box-shadow .18s ease; box-shadow: 0 8px 30px rgba(124,107,255,0.18); }
+    .btn-email{ background: var(--accent-purple); }
+    .btn-social{ background: var(--accent-mint); color:#063; box-shadow: 0 8px 30px rgba(114,224,193,0.18); }
+    .btn-job{ background: var(--accent-peach); color:#4B1F1F; box-shadow: 0 8px 30px rgba(255,178,198,0.14); }
+    .cta:hover{ transform: translateY(-3px); }
+
+    .muted-small{ color:var(--muted); font-size:12px; margin-top:10px; }
+
+    @media (max-width:880px){
+      .grid{ grid-template-columns: 1fr; }
+      .hero{ flex-direction:column; align-items:flex-start; gap:10px; }
+      .hero-right{ text-align:left; align-self:stretch; min-width:auto; }
+      .tagline{ justify-content:flex-start; min-height:auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <div class="wrap-inner">
+      <div class="hero">
+        <!-- clickable logo (sparkle icon + text) -->
+        <a class="brand-link" href="{{ url_for('home_page') }}">
+          <div class="logo-box" aria-hidden="true">
+            <!-- sparkle/star SVG -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2l1.8 4.2L18 8l-4.2 1.8L12 14l-1.8-4.2L6 8l4.2-1.8L12 2z" fill="white" opacity="0.98"/>
+              <path d="M19 4l.9 2.1L22 7l-2.1.9L19 10l-.9-2.1L16 7l2.1-.9L19 4z" fill="white" opacity="0.9"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="title">SecureGuard</span>
+            <span class="tag">Gentle, smart protection</span>
+          </div>
+        </a>
+
+        <div class="hero-right">
+          <p class="tagline"><span id="taglineText" class="fade"></span></p>
+          <p class="subtag">Quick checks • Clear explanations • Learn to spot scams</p>
+        </div>
+      </div>
+
+      <div class="grid" id="cardGrid">
+        <!-- Email card -->
+        <div class="card" aria-labelledby="email-title">
+          <div class="icon" style="background:linear-gradient(135deg,#6F5CFF, #8B7CFF); color:white;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7.5v9A2.5 2.5 0 0 0 5.5 19h13A2.5 2.5 0 0 0 21 16.5v-9A2.5 2.5 0 0 0 18.5 5h-13A2.5 2.5 0 0 0 3 7.5z" stroke="rgba(255,255,255,0.9)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 7.5l-9 6-9-6" stroke="rgba(255,255,255,0.9)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 id="email-title">Email Detector</h3>
+          <p>Paste any email content to check for phishing phrases, suspicious links, and credential requests.</p>
+          <a class="cta btn-email" href="{{ url_for('email_page') }}" role="button" aria-label="Open Email Detector">Open Email
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.95" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M12 5l7 7-7 7" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <!-- Social card -->
+        <div class="card" aria-labelledby="social-title">
+          <div class="icon" style="background:linear-gradient(135deg,#72E0C1,#6BD8FF); color:#003;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="rgba(3,6,3,0.9)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 id="social-title">Social & Chat Detector</h3>
+          <p>Check WhatsApp, Instagram, Telegram messages for lottery, romance, investment and fee scams.</p>
+          <a class="cta btn-social" href="{{ url_for('social_page') }}" role="button" aria-label="Open Social Detector">Open Social
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.95" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M12 5l7 7-7 7" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <!-- Job card -->
+        <div class="card" aria-labelledby="job-title">
+          <div class="icon" style="background:linear-gradient(135deg,#FFB2C6,#FFD8A8); color:#4B1F1F;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="7" width="18" height="12" rx="2" stroke="rgba(75,31,31,0.9)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="rgba(75,31,31,0.9)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 id="job-title">Job Offer Detector</h3>
+          <p>Verify job messages and offers — spot pay-to-apply, no-interview claims, and requests for documents.</p>
+          <a class="cta btn-job" href="{{ url_for('job_page') }}" role="button" aria-label="Open Job Detector">Open Job
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="opacity:.95" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M12 5l7 7-7 7" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <p class="muted-small" style="text-align:center; margin-top:26px;">Built with care • Rule-based detection • No data leaves your browser (server processes text locally)</p>
+    </div>
+  </div>
+
+  <script>
+    // rotating taglines
+    const taglines = [
+      "Stop scams before they reach you — fast, simple, smart.",
+      "Guard your inbox, DMs and job offers with one click.",
+      "Detect. Learn. Stay safe — Smart protection for everyday life."
+    ];
+    const el = document.getElementById('taglineText');
+    let idx = 0;
+    const showTagline = (i) => {
+      if(!el) return;
+      el.classList.remove('show');
+      setTimeout(() => {
+        el.textContent = taglines[i];
+        el.classList.add('show');
+      }, 120);
+    };
+    showTagline(0);
+    setInterval(() => {
+      idx = (idx + 1) % taglines.length;
+      showTagline(idx);
+    }, 3800);
+
+    // entrance animation for cards - staggered
+    const cards = document.querySelectorAll('#cardGrid .card');
+    window.addEventListener('load', () => {
+      cards.forEach((c, i) => {
+        setTimeout(() => c.classList.add('show'), 120 + i * 140);
+      });
+    });
+  </script>
+</body>
+</html>
