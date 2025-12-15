@@ -1,52 +1,23 @@
-SecureGuard  
-A lightweight cybersecurity toolkit for detecting phishing emails, social media scams, and job fraud.
+Project title: SecureGuard
 
-SecureGuard is a simple Flask-based web application designed to help users identify suspicious messages across **email**, **social media**, and **job offers**.  
-It analyzes text, assigns a **risk score**, and explains the **reasons** behind potential scams using rule-based detection logic.
+Subtitle:
+Lightweight Cybersecurity Detection Web App (Flask, Python, HTML)
 
-Features
+Description:
+Built a web application to detect phishing emails, social media scams, and job fraud using rule-based cybersecurity logic. The app analyzes user-submitted text, assigns a risk score, and explains the reasons behind potential threats, helping users identify suspicious messages in real time.
 
-**Phishing Email Detector**
-- Detects threatening language  
-- Flags requests for passwords, OTP, CVV, and sensitive info  
-- Identifies suspicious links  
-- Provides a risk label + detailed reasons  
+Features:
 
-**Social Media Scam Detector**
-- Catches lottery scams  
-- Investment/Crypto promises  
-- Romance scam patterns  
-- Fee/advance payment traps  
-- Secrecy-based manipulation  
+Detects phishing emails and scam messages
 
-### ✔ **Job Fraud Detector**
-- Flags jobs asking for money  
-- Unrealistic salary claims  
-- No-interview guaranteed placement scams  
-- Requests for Aadhaar, PAN, bank details  
-- Suspicious contact emails (gmail/yahoo domains)
+Flags job fraud and social engineering patterns
 
+Assigns risk levels with clear explanations
 
-How It Works
+Simple, user-friendly web interface
 
-SecureGuard uses **text-analysis heuristics** to detect scam patterns.  
-Each analyzer returns:
-- **Label** → Likely Safe / Suspicious / High Risk  
-- **Risk score** (0–100)  
-- **List of reasons**
+GitHub:
+https://github.com/shreyaamahajann/secureguard
 
-No machine learning needed — fast, transparent, explainable.
-
-
-Tech Stack
-
-| Technology | Purpose |
-|-----------|---------|
-| **Python** | Core logic |
-| **Flask** | Web framework |
-| **Jinja2** | HTML templating |
-| **HTML/CSS** | Frontend pages |
-
-
-## 📂 Project Structure
-
+Live Demo:
+https://secureguard-drdn.onrender.com
